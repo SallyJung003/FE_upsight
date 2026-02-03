@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Provider } from "@chakra-ui/react/provider";
+import { Providers } from "./providers";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -25,11 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <Provider>
+      <Providers>
         <body className={`${geistSans.variable} ${geistMono.variable}`}>
           {children}
         </body>
-      </Provider>
+      </Providers>
     </html>
   );
 }
