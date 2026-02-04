@@ -12,7 +12,7 @@ export function useCreateProduct() {
         },
         onSuccess: () => {
             // 상품 목록 캐시 무효화 (자동 리페치)
-            queryClient.invalidateQueries({ queryKey: ['products'] })
+            queryClient.invalidateQueries({ queryKey: ['products'], exact: true })
         }
     })
 }

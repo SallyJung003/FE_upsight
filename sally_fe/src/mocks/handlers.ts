@@ -1,6 +1,7 @@
 // src/mocks/handlers.ts
 import { http, HttpResponse } from 'msw'
-import { products, type Product } from './data'
+import { products } from './data'
+import { Product } from '@/types/product'
 
 //복사본
 let mockProducts = [...products]

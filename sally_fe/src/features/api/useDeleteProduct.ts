@@ -9,9 +9,12 @@ export function useDeleteProduct() {
             const { data } = await apiClient.delete(`/products/${id}`)
             return data
         },
-        onSuccess: () => {
+        onSuccess: (_, variables) => {
             // 상품 목록 캐시 무효화
-            queryClient.invalidateQueries({ queryKey: ['products'] })
+            queryClient.invalidateQueries({ queryKey: ['products'], exact: true })
+
+            // 삭제된 상품의 상세 캐시 제거
+            queryClient.removeQueries({ queryKey: ['products', variables] })
         }
     })
 }

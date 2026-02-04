@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Providers } from "./providers";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Navbar } from "@/shared/ui/Navbar";
+import { Container } from "@chakra-ui/react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,12 +26,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <Providers>
-        <body className={`${geistSans.variable} ${geistMono.variable}`}>
-          {children}
-        </body>
-      </Providers>
+    <html lang="kr">
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <Providers>
+          <Navbar />
+          <Container maxW="container.xl" py={16}>
+            {children}
+          </Container>
+        </Providers>
+      </body>
     </html>
   );
 }
