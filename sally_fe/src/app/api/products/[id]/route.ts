@@ -6,10 +6,11 @@ import path from 'path'
 // GET /api/products/:id - 상품 상세 조회
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const product = await getProductById(params.id)
+        const { id } = await params
+        const product = await getProductById(id)
 
         if (!product) {
             return NextResponse.json(
@@ -31,11 +32,12 @@ export async function GET(
 // DELETE /api/products/:id - 상품 삭제
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params
         // 삭제 전 상품 정보 가져오기 (이미지 파일 삭제용)
-        const product = await getProductById(params.id)
+        const product = await getProductById(id)
 
         if (!product) {
             return NextResponse.json(
@@ -44,7 +46,7 @@ export async function DELETE(
             )
         }
 
-        const success = await deleteProduct(params.id)
+        const success = await deleteProduct(id)
 
         if (!success) {
             return NextResponse.json(
