@@ -72,4 +72,11 @@ export const handlers = [
             message: '상품이 삭제되었습니다'
         })
     }),
+
+    // 5. 이미지 업로드 POST /api/upload
+    http.post('/api/upload', async () => {
+        return HttpResponse.json({
+            url: 'https://via.placeholder.com/150'
+        })
+    }),
 ]

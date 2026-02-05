@@ -7,6 +7,11 @@ const createJestConfig = nextJest({
 const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testEnvironment: 'jest-environment-jsdom',
+  
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
+  
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
@@ -14,6 +19,17 @@ const customJestConfig = {
     '**/__tests__/**/*.[jt]s?(x)',
     '**/?(*.)+(spec|test).[jt]s?(x)'
   ],
+  
+  forceExit: true,
+  detectOpenHandles: false,
 }
 
-module.exports = createJestConfig(customJestConfig)
+module.exports = async () => {
+  const jestConfig = await createJestConfig(customJestConfig)()
+  return {
+    ...jestConfig,
+    transformIgnorePatterns: [
+      '/node_modules/(?!(msw|@mswjs|until-async)/)',
+    ],
+  }
+}
